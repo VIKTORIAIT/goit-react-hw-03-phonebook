@@ -11,7 +11,7 @@ const ContactList = ({ data, onDelete }) => {
               <p className={s.text}>
                 {el.name}: {el.number}
               </p>
-              <button onClick={onDelete} id={el.number} type="button">
+              <button onClick={onDelete} id={el.id} type="button">
                 Delete
               </button>
             </li>

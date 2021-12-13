@@ -30,7 +30,7 @@ class App extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { contacts } = this.state;
-    if (prevState.contacts !== contacts) {
+    if (prevState.contacts.length !== contacts.length) {
       storage.save(STORAGE_KEY, contacts);
     }
   }
@@ -47,9 +47,9 @@ class App extends Component {
       contact.name.toLowerCase().includes(normalizedFilter),
     );
   };
-  onDelete = ev => {
+  onDelete = (ev, id) => {
     this.setState(prevState => ({
-      contacts: prevState.contacts.filter(item => item.number !== ev.target.id),
+      contacts: prevState.contacts.filter(item => item.id !== ev.target.id),
     }));
   };
 
