@@ -4,6 +4,9 @@ import ContactList from './component/ContactList';
 import ContactForm from './component/ContactForm';
 import Filter from './component/Filter';
 import s from './App.module.css';
+import * as storage from './services/localStorage';
+
+const STORAGE_KEY = 'contacts';
 
 class App extends Component {
   state = {
@@ -17,6 +20,21 @@ class App extends Component {
     number: '',
     filter: '',
   };
+
+  componentDidMount() {
+    const savedContacts = storage.get(STORAGE_KEY);
+    if (savedContacts) {
+      this.setState({ contacts: savedContacts });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { contacts } = this.state;
+    if (prevState.contacts !== contacts) {
+      storage.save(STORAGE_KEY, contacts);
+    }
+  }
+
   onChange = ev => {
     this.setState({ [ev.target.name]: ev.target.value });
   };
